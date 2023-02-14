@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
-const db = require('./config/db');
-const apiRoutes = require('./app/api/routes');
-const guiRoutes = require('./app/gui/routes');
+const apiRouter = require('./app/api/router');
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,11 +12,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// API routes
-app.use('/api', apiRoutes);
+// Mount the API router at the /api endpoint
+app.use('/api', apiRouter);
 
-// GUI routes
-app.use('/', guiRoutes);
+// Serve static files for the GUI
+app.use(express.static('app/gui/public'));
+
+// Redirect all other requests to the GUI
+app.get('*', (req, res) => {
+  res.sendFile('app/gui/views/index.html', { root: '.' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -27,13 +30,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-db.authenticate()
-  .then(() => {
-    console.log('Connected to the database successfully!');
-    app.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}.`);
-    });
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
