@@ -1,0 +1,28 @@
+{
+  "name": "bib",
+  "version": "1.0.0",
+  "description": "BIB is an open source and self hostable software that enables communities and associations to set up a sharing system (for books, tools and other goods) among their members.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mstrdav/BIB.git"
+  },
+  "keywords": [
+    "sharing",
+    "selfhost",
+    "opensource",
+    "book",
+    "tool",
+    "community",
+    "association"
+  ],
+  "author": "Mstrdav",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Mstrdav/BIB/issues"
+  },
+  "homepage": "https://github.com/Mstrdav/BIB#readme"
+}
