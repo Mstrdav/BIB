@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/Mstrdav/BIB/issues"
   },
-  "homepage": "https://github.com/Mstrdav/BIB#readme"
+  "homepage": "https://github.com/Mstrdav/BIB#readme",
+  "dependencies": {
+    "pg": "^8.9.0"
+  }
 }
