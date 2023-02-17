@@ -29,28 +29,25 @@ router.get('/instance', (req, res) => {
 });
 
 // Users
-router.get('/users', getAllUsers);
-router.get('/users/:id', getUserById);
-router.post('/users', createUser);
-router.put('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
+router.get('/u', getAllUsers);
+router.get('/u/:id', getUserById);
+router.post('/u', createUser);
+router.patch('/u/:id', updateUser);
+router.delete('/u/:id', deleteUser);
 
-router.get('/users/:id/objects', getUserObjects);
+router.get('/u/:id/o', getUserObjects);
 
 // Objects
-router.get('/objects', getAllObjects);
-router.get('/objects/:id', getObjectById);
-router.post('/objects', createObject);
-router.put('/objects/:id', updateObject);
-router.delete('/objects/:id', deleteObject);
+router.get('/o', getAllObjects);
+router.get('/o/:id', getObjectById);
+router.post('/o', createObject);
+router.patch('/o/:id', updateObject);
+router.delete('/o/:id', deleteObject);
 
-// Tags
-router.get('/tags', getAllTags);
-router.get('/tags/:id', getTagById);
-router.post('/tags', createTag);
-router.put('/tags/:id', updateTag);
-router.delete('/tags/:id', deleteTag);
-
-router.get('/tags/:id/objects', getTagObjects);
+// Comments
+router.get('/o/:id/c', getObjectComments);
+router.post('/o/:id/c', createComment);
+router.patch('/o/:id/c/:id', updateComment);
+router.delete('/o/:id/c/:id', deleteComment);
 
 module.exports = router;
