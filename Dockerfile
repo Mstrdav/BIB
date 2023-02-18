@@ -6,7 +6,7 @@ FROM node:latest
 WORKDIR /usr/src/app
 
 # Copies package.json, package-lock.json, .env to the root of WORKDIR
-COPY ["package.json", "package-lock.json", ".env", "./"]
+COPY ["package.json", "package-lock.json", "./"]
 
 # Copies everything in the src directory to WORKDIR/src
 COPY . .
