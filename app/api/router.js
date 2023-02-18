@@ -1,7 +1,26 @@
 const express = require('express');
 const config = require('../../config/index');
 const router = express.Router();
-// const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require('./routes/users');
+
+// retrieve all router functions
+const getAllUsers = require('./routes/u/getAllUsers');
+const getUserById = require('./routes/u/getUserById');
+const createUser = require('./routes/u/createUser');
+const updateUser = require('./routes/u/updateUser');
+const deleteUser = require('./routes/u/deleteUser');
+
+const getUserObjects = require('./routes/u/getUserObjects');
+
+const getAllObjects = require('./routes/o/getAllObjects');
+const getObjectById = require('./routes/o/getObjectById');
+const createObject = require('./routes/o/createObject');
+const updateObject = require('./routes/o/updateObject');
+const deleteObject = require('./routes/o/deleteObject');
+
+const getObjectComments = require('./routes/c/getObjectComments');
+const createComment = require('./routes/c/createComment');
+const updateComment = require('./routes/c/updateComment');
+const deleteComment = require('./routes/c/deleteComment');
 
 // Main route
 router.get('/', (req, res) => {
