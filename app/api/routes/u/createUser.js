@@ -1,4 +1,4 @@
-const db = require("../../../config/db");
+const db = require("../../../../config/db");
 
 // Create a new user in the database
 module.exports = (req, res) => {

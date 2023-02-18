@@ -1,4 +1,4 @@
-const db = require("../../../config/db");
+const db = require("../../../../config/db");
 
 // Retrieve all users from the database
 module.exports = (req, res) => {
