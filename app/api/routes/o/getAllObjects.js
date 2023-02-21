@@ -1,4 +1,4 @@
-const db = require("../../../config/db");
+const db = require("../../../../config/db").default;
 
 module.exports = (req, res) => {
   db.query("SELECT * FROM objects", (error, results) => {

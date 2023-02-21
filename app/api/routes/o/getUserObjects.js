@@ -1,4 +1,4 @@
-const db = require("../../../config/db");
+const db = require("../../../../config/db").default;
 
 // get user objects
 module.exports = (req, res) => {
