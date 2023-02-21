@@ -30,15 +30,20 @@ CREATE TABLE IF NOT EXISTS tbl_static_user(
 CREATE TABLE IF NOT EXISTS tbl_static_item(
     item_id int DEFAULT nextval('tbl_static_item_id_seq'::regclass) NOT NULL PRIMARY KEY,
     item_name varchar(100) NOT NULL,
-    item_tags int [] DEFAULT '{}'::int [] REFERENCES tbl_static_tag,
     item_state int NOT NULL,
     CHECK (
         item_state BETWEEN 1
         AND 100
     ),
     item_user_id int NOT NULL REFERENCES tbl_static_user ON UPDATE CASCADE ON DELETE CASCADE,
-    item_current_holder_id int NOT NULL REFERENCES tbl_static_user,
-    item_comment_list int [] DEFAULT '{}'::int [] REFERENCES tbl_static_comment
+    item_current_holder_id int NOT NULL REFERENCES tbl_static_user
+);
+
+-- Join ITEM and TAG
+CREATE TABLE IF NOT EXISTS tbl_static_item_tag(
+    item_id int NOT NULL REFERENCES tbl_static_item ON UPDATE CASCADE ON DELETE CASCADE,
+    tag_id int NOT NULL REFERENCES tbl_static_tag ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY (item_id, tag_id)
 );
 
 CREATE TABLE IF NOT EXISTS tbl_static_comment(
