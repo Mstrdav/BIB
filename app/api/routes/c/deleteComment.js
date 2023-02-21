@@ -1,4 +1,4 @@
-const db = require("../../../../config/db").default;
+const db = require("../../../../config/db");
 
 // delete comment
 module.exports = (req, res) => {

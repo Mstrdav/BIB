@@ -1,4 +1,4 @@
-const db = require("../../../../config/db").default;
+const db = require("../../../../config/db");
 
 // Retrieve a specific user by ID from the database
 module.exports = (req, res) => {
