@@ -40,7 +40,7 @@ app.listen(PORT, () => {
   const db = require('./config/db');
 
   db.connect().catch(err => {
-    console.error('Database is not yet setup.\nRestarting ontainer...'); // TODO: add a wait for or dockerize command to wait for the database to be ready
+    console.error('Database is not yet setup.\nRestarting container...'); // TODO: add a wait for or dockerize command to wait for the database to be ready
 
     // Exit the process
     process.exit(1);
