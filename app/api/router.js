@@ -9,7 +9,7 @@ const createUser = require('./routes/u/createUser');
 const updateUser = require('./routes/u/updateUser');
 const deleteUser = require('./routes/u/deleteUser');
 
-const getUserObjects = require('./routes/u/getUserObjects');
+const getUserObjects = require('./routes/o/getUserObjects');
 
 const getAllObjects = require('./routes/o/getAllObjects');
 const getObjectById = require('./routes/o/getObjectById');
