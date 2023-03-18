@@ -23,10 +23,9 @@ CREATE TABLE IF NOT EXISTS tbl_static_user(
     user_name varchar(100) NOT NULL,
     user_mail varchar(255) NOT NULL,
     user_pwd varchar(255) NOT NULL,
-    user_pp_url varchar(255),
+    user_pp_url varchar(255)
 );
 
--- Join USER and ROLE
 CREATE TABLE IF NOT EXISTS tbl_static_user_role(
     user_id int NOT NULL REFERENCES tbl_static_user ON UPDATE CASCADE ON DELETE CASCADE,
     role_id int NOT NULL REFERENCES tbl_static_user_role ON UPDATE CASCADE ON DELETE CASCADE,
