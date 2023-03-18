@@ -14,8 +14,9 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=BIB_DB
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Pi3rreLoui$
+      - POSTGRES_PASSWORD=Pi3rreLoui$ # Change this to a more secure password
       - POSTGRES_PORT=5432
+      - JWT_SECRET=Pi3rreLoui$ # Change this to a random string
   postgres:
     image: postgres:alpine3.17
     restart: always
