@@ -1,0 +1,5 @@
+{ 
+    "middleware": {
+        "error": "Un problème est survenu !"
+    }
+}
