@@ -28,6 +28,7 @@
   "homepage": "https://github.com/Mstrdav/BIB#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.9.0"
   }
 }

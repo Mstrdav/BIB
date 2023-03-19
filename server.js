@@ -8,6 +8,8 @@ const apiRouter = require('./app/api/router');
 
 const PORT = process.env.PORT || 3000;
 
+const TEXTS = require("./locales/" + process.env.LANGUAGE + ".json");
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,37 +28,36 @@ app.get('*', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+  res.status(500).send(TEXTS.middleware.error);
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-  console.log(`Press Ctrl+C to quit.`);
+  console.log(TEXTS.server.listening_A + PORT + TEXTS.server.listening_B);
 
   // Connect to the database
-  console.log('\n * Connecting to the database...');
+  console.log(TEXTS.database.connecting);
   
   const db = require('./config/db');
 
   db.connect().catch(err => {
-    console.error('Database is not yet setup.\nRestarting container...'); // TODO: add a wait for or dockerize command to wait for the database to be ready
+    console.error(TEXTS.database.notConfigured); // TODO: add a wait for or dockerize command to wait for the database to be ready
 
     // Exit the process
     process.exit(1);
   }).finally(() => {
-    console.log('Connected to the database!');
+    console.log(TEXTS.database.connected);
 
     // Seeding the database
-    console.log('\n * Seeding the database...');
+    console.log(TEXTS.database.seeding.pending);
     // seed is a sql file in ./seeders/tableDeclaration.sql
     const seed = fs.readFileSync('./seeders/tableDeclarations.sql').toString();
     db.query(seed, (err, res) => {
       if (err) {
-        console.error('Unable to seed the database:');
+        console.error(TEXTS.database.seeding.error);
         console.error(err);
       } else {
-        console.log('Database seeded!');
+        console.log(TEXTS.database.seeding.success);
       }
     });
   });

@@ -6,22 +6,34 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - .:/app
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=BIB_DB
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Pi3rreLoui$
+      - POSTGRES_PASSWORD=Pi3rreLoui$ # Change this to a more secure password
       - POSTGRES_PORT=5432
+      - LANGUAGE=EN_en
+      - JWT_SECRET=Pi3rreLoui$ # Change this to a random string
   postgres:
     image: postgres:alpine3.17
     restart: always
     ports:
       - 5432:5432
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=BIB_DB
       - POSTGRES_PASSWORD=Pi3rreLoui$
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+    driver: local

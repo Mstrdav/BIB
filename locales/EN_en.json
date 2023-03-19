@@ -1,0 +1,25 @@
+{ 
+    "middleware": {
+        "error": "Something went wrong!"
+    },
+    "database": {
+        "connecting": "\n * Connecting to the database...",
+        "notConfigured": "Database is not yet configured.\nRestarting container...",
+        "connected": "Connected to the database!",
+        "seeding": {
+            "pending": "\n * Seeding the database...",
+            "error": "Unable to seed the database:",
+            "success": "Database seeded!"
+        }
+    },
+    "server": {
+        "listening_A": "Server is listening on port ",
+        "listening_B": "\nPress CTRL + C to stop the process."
+    },
+    "routes": {
+        "notFound": "Route not found!"
+    },
+    "api": {
+        "notFound": "API not found!"
+    }
+}
