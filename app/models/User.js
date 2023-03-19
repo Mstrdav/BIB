@@ -4,7 +4,7 @@
 
 class User {
   constructor(dbObject) {
-    this.id = dbObject.id;
+    this.id = dbObject.user_id;
     this.name = dbObject.user_name;
     this.email = dbObject.user_mail;
     this.password = dbObject.user_pwd;
