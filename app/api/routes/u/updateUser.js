@@ -20,7 +20,7 @@ module.exports = (req, res) => {
   const { name, email, password } = req.body;
 
   // get the previous user information
-  db.query("SELECT * FROM tbl_static_user WHERE id = $1", [id], (error, results) => {
+  db.query("SELECT * FROM tbl_static_user WHERE user_id = $1", [id], (error, results) => {
     if (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -49,7 +49,7 @@ module.exports = (req, res) => {
 
       // check if email is already taken
       db.query(
-        "SELECT * FROM tbl_static_user WHERE user_mail = $1 AND id != $2",
+        "SELECT * FROM tbl_static_user WHERE user_mail = $1 AND user_id != $2",
         [sanitizedEmail, id],
         (selectError, selectResults) => {
           if (selectError) {
@@ -59,8 +59,8 @@ module.exports = (req, res) => {
             if (selectResults.rows.length === 0) {
               // Update the user
               db.query(
-                "UPDATE tbl_static_user SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *",
-                [name, email, password, id],
+                "UPDATE tbl_static_user SET user_name = $1, user_mail = $2, user_pwd = $3 WHERE user_id = $4 RETURNING *",
+                [sanitizedName, sanitizedEmail, hashedPassword, id],
                 (error, results) => {
                   if (error) {
                     console.error(error);
