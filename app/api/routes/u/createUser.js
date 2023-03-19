@@ -21,25 +21,32 @@ module.exports = (req, res) => {
     return res.status(400).send("Missing required fields");
   }
 
-  let sanitizedName = "'" + name + "'";
-  let sanitizedEmail = "'" + email.toLowerCase() + "'";
-  let hashedPassword = "'" + sha256(password) + "'";
+  let sanitizedName = name;
+  let sanitizedEmail = email.toLowerCase();
+
+  // regex check for email
+  if (!sanitizedEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+    return res.status(400).send("Invalid email");
+  }
+
+  let hashedPassword = sha256(password);
 
   // Check if the user already exists
   db.query(
-    "SELECT * FROM tbl_static_user WHERE user_mail = " + sanitizedEmail,
-    (err, results) => {
-      if (err) {
+    "SELECT * FROM tbl_static_user WHERE user_mail = $1",
+    [sanitizedEmail],
+    (selectError, selectResults) => {
+      if (selectError) {
         res.status(500).send("Error retrieving user from database");
       } else {
         // Check if the user exists
-        if (results.rowCount === 0) {
+        if (selectResults.rows.length === 0) {
           // Create the user
           db.query(
-            "INSERT INTO tbl_static_user (user_name, user_mail, user_pwd) VALUES (" + [sanitizedName, sanitizedEmail, hashedPassword].join(", ") +")",
-            (err, results) => {
-              console.log(results);
-              if (err) {
+            "INSERT INTO tbl_static_user (user_name, user_mail, user_pwd) VALUES ($1, $2, $3)",
+            [sanitizedName, sanitizedEmail, hashedPassword],
+            (insertError, insertResults) => {
+              if (insertError) {
                 res.status(500).send("Error creating user");
               } else {
                 // Generate a token
@@ -47,7 +54,7 @@ module.exports = (req, res) => {
                   { email: sanitizedEmail },
                   process.env.JWT_SECRET,
                   {
-                    expiresIn: "1h"
+                    expiresIn: "1w"
                   }
                 );
 
