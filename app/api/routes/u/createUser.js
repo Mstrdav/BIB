@@ -33,7 +33,7 @@ module.exports = (req, res) => {
 
   // Check if the user already exists
   db.query(
-    "SELECT * FROM tbl_static_user WHERE user_mail = $1 OR user_name = $2",
+    "SELECT * FROM tbl_static_user WHERE user_mail = $1",
     [sanitizedEmail],
     (selectError, selectResults) => {
       if (selectError) {
