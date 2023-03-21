@@ -9,7 +9,9 @@
         "seeding": {
             "pending": "\n * Seeding the database...",
             "error": "Unable to seed the database:",
-            "success": "Database seeded!"
+            "success": "Database seeded!",
+            "adminError": "Unable to create admin user:",
+            "adminSuccess": "Admin user created!"
         }
     },
     "server": {

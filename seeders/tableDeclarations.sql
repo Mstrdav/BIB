@@ -13,6 +13,15 @@ CREATE TABLE IF NOT EXISTS tbl_static_user_role(
     role_name varchar(255) NOT NULL
 );
 
+-- create admin role
+INSERT INTO tbl_static_user_role(role_name) VALUES ('admin') ON CONFLICT DO NOTHING;
+
+-- create user role
+INSERT INTO tbl_static_user_role(role_name) VALUES ('user') ON CONFLICT DO NOTHING;
+
+-- create official role
+INSERT INTO tbl_static_user_role(role_name) VALUES ('official') ON CONFLICT DO NOTHING;
+
 CREATE TABLE IF NOT EXISTS tbl_static_tag(
     tag_id int DEFAULT nextval('tbl_static_tag_id_seq'::regclass) NOT NULL PRIMARY KEY,
     tag_name varchar(255) NOT NULL
@@ -26,6 +35,7 @@ CREATE TABLE IF NOT EXISTS tbl_static_user(
     user_pp_url varchar(255)
 );
 
+-- Join USER and ROLE
 CREATE TABLE IF NOT EXISTS tbl_static_user_role(
     user_id int NOT NULL REFERENCES tbl_static_user ON UPDATE CASCADE ON DELETE CASCADE,
     role_id int NOT NULL REFERENCES tbl_static_user_role ON UPDATE CASCADE ON DELETE CASCADE,

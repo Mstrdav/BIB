@@ -2,6 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+const { createHash } = require('crypto');
+/**
+ * Returns a SHA256 hash using SHA-3 for the given `content`.
+ *
+ * @see https://en.wikipedia.org/wiki/SHA-3
+ *
+ * @param {String} content
+ *
+ * @returns {String}
+ */
+const sha256 = (content) => createHash('sha3-256').update(content).digest('hex');
+
 const fs = require('fs');
 
 const apiRouter = require('./app/api/router');
@@ -52,12 +64,21 @@ app.listen(PORT, () => {
     console.log(TEXTS.database.seeding.pending);
     // seed is a sql file in ./seeders/tableDeclaration.sql
     const seed = fs.readFileSync('./seeders/tableDeclarations.sql').toString();
+    let adminUSer = fs.readFileSync('./seeders/adminUser.sql').toString().replace('password', sha256(process.env.ADMIN_PASSWORD || 'password'));
     db.query(seed, (err, res) => {
       if (err) {
         console.error(TEXTS.database.seeding.error);
         console.error(err);
       } else {
         console.log(TEXTS.database.seeding.success);
+      }
+    });
+    db.query(adminUSer, (err, res) => {
+      if (err) {
+        console.error(TEXTS.database.seeding.adminError);
+        console.error(err);
+      } else {
+        console.log(TEXTS.database.seeding.adminSuccess);
       }
     });
   });
