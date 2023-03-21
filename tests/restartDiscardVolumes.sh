@@ -1,6 +1,6 @@
 echo '[restarting] discarding volumes'
 echo '[restarting] docker compose down -v'
-docker compose down
+docker compose down -v
 echo '[restarting] removing docker image'
 docker image rm bib-web:latest
 echo '[restarting] docker compose up -d'
