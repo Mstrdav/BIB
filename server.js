@@ -80,9 +80,9 @@ app.listen(PORT, () => {
             console.error(err);
           } else {
             console.log(TEXTS.database.seeding.adminSuccess);
+            console.log(TEXTS.database.seeding.success);
           }
         });
-        console.log(TEXTS.database.seeding.success);
       }
     });
   });
