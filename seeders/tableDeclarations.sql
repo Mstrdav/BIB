@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS tbl_static_user(
 );
 
 -- Join USER and ROLE
-CREATE TABLE IF NOT EXISTS tbl_static_user_role(
+CREATE TABLE IF NOT EXISTS tbl_static_user_join_role(
     user_id int NOT NULL REFERENCES tbl_static_user ON UPDATE CASCADE ON DELETE CASCADE,
     role_id int NOT NULL REFERENCES tbl_static_user_role ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY (user_id, role_id)
