@@ -7,8 +7,8 @@ class User {
     this.id = dbObject.user_id;
     this.name = dbObject.user_name;
     this.email = dbObject.user_mail;
-    this.password = dbObject.user_pwd;
     this.ppUrl = dbObject.user_pp_url;
+    this.role = ["admin", "user", "officiel"][dbObject.role_id - 1];
   }
 
   short() {
@@ -16,6 +16,7 @@ class User {
       id: this.id,
       name: this.name,
       ppUrl: this.ppUrl,
+      role: this.role,
     };
   }
 
@@ -25,6 +26,7 @@ class User {
       name: this.name,
       email: this.email,
       ppUrl: this.ppUrl,
+      role: this.role,
     };
   }
 }
