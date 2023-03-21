@@ -15,7 +15,7 @@ const sha256 = (content) => createHash('sha3-256').update(content).digest('hex')
 // If email and password match, return a token
 // Otherwise, return an error
 module.exports = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.query;
 
   if (!email || !password) {
     return res.status(400).send("Missing required fields");
@@ -23,11 +23,6 @@ module.exports = (req, res) => {
 
   // sanitize
   let sanitizedEmail = email.toLowerCase();
-
-  // regex check for email
-  if (!sanitizedEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
-    return res.status(400).send("Invalid email");
-  }
 
   let sanitizedPassword = sha256(password);
 
