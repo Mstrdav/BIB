@@ -10,6 +10,9 @@
             "pending": "\n * Seeding the database...",
             "error": "Unable to seed the database:",
             "success": "Database seeded!",
+            "tablesPending": "Creating the database tables...",
+            "tablesSuccess": "Database tables created!",
+            "adminPending": "Creating the admin user...",
             "adminError": "Unable to create admin user:",
             "adminSuccess": "Admin user created!"
         }
