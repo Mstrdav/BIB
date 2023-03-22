@@ -28,7 +28,7 @@ module.exports = (req, res) => {
       res.status(404).json({ error: "User not found" });
     } else {
       // check if the user is modifying their own account
-      if (req.user.email !== results.rows[0].user_mail) {
+      if (req.user.id !== results.rows[0].user_id) {
         return res.status(403).send("You are not authorized to modify this user");
       }
 
@@ -70,7 +70,7 @@ module.exports = (req, res) => {
                   } else {
                     // Generate a token
                     const token = jwt.sign(
-                      { email: sanitizedEmail },
+                      { id: results.rows[0].user_id },
                       process.env.JWT_SECRET,
                       {
                         expiresIn: "1w"

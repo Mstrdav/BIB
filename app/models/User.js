@@ -8,7 +8,18 @@ class User {
     this.name = dbObject.user_name;
     this.email = dbObject.user_mail;
     this.ppUrl = dbObject.user_pp_url;
-    this.role = ["admin", "user", "officiel"][dbObject.role_id - 1];
+    this.roles = dbObject.roles;
+  }
+
+  getID() {
+    return this.id;
+  }
+
+  addRole(role) {
+    if (this.roles.find((r) => r === role)) {
+      return;
+    }
+    this.roles.push(role);
   }
 
   short() {
@@ -16,7 +27,7 @@ class User {
       id: this.id,
       name: this.name,
       ppUrl: this.ppUrl,
-      role: this.role,
+      roles: this.roles,
     };
   }
 
@@ -26,7 +37,7 @@ class User {
       name: this.name,
       email: this.email,
       ppUrl: this.ppUrl,
-      role: this.role,
+      roles: this.roles,
     };
   }
 }

@@ -43,7 +43,7 @@ module.exports = (req, res) => {
         if (selectResults.rows.length === 0) {
           // Create the user
           db.query(
-            "INSERT INTO tbl_static_user (user_name, user_mail, user_pwd) VALUES ($1, $2, $3)",
+            "INSERT INTO tbl_static_user (user_name, user_mail, user_pwd) VALUES ($1, $2, $3) RETURNING user_id",
             [sanitizedName, sanitizedEmail, hashedPassword],
             (insertError, insertResults) => {
               if (insertError) {
@@ -51,15 +51,26 @@ module.exports = (req, res) => {
               } else {
                 // Generate a token
                 const token = jwt.sign(
-                  { email: sanitizedEmail },
+                  { id: insertResults.rows[0].user_id },
                   process.env.JWT_SECRET,
                   {
                     expiresIn: "1w"
                   }
                 );
 
-                // Send the token to the user
-                res.status(200).send({ token });
+                // add default role (2 = user) to the user
+                db.query(
+                  "INSERT INTO tbl_static_user_join_role (user_id, role_id) VALUES ($1, $2)",
+                  [insertResults.rows[0].user_id, 2],
+                  (joinError, joinResults) => {
+                    if (joinError) {
+                      res.status(500).json({ token, error: "Error adding role" });
+                    } else {
+                      // Send the token to the user
+                      res.status(200).json({ token });
+                    }
+                  }
+                );
               }
             }
           );

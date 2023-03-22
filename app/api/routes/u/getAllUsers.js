@@ -14,19 +14,25 @@ module.exports = (req, res) => {
         let users = [];
         // Loop through the results
         for (let i = 0; i < results.rowCount; i++) {
-          // Create a new user object
-          let user = new User({
-            "user_id": results.rows[i].user_id,
-            "user_name": results.rows[i].user_name,
-            "user_mail": results.rows[i].user_mail,
-            "user_pp_url": results.rows[i].user_pp_url,
-            "role_id": results.rows[i].role_id
-          });
-          // Add the user to the array
-          users.push(user);
+          // Check if the user already exists in the array
+          if (users.find((user) => user.id === results.rows[i].user_id)) {
+            // If the user exists, add the role to the user object
+            users.find((user) => user.id === results.rows[i].user_id).roles.push(results.rows[i].role_id);
+          } else {
+            // If the user doesn't exist, add the user to the array
+            // Create a new user object
+            let user = new User({
+              "user_id": results.rows[i].user_id,
+              "user_name": results.rows[i].user_name,
+              "user_mail": results.rows[i].user_mail,
+              "user_pp_url": results.rows[i].user_pp_url,
+              "roles": [results.rows[i].role_id]
+            });
+            users.push(user.short());
+          }
         }
-        // Send the array of users
-        res.status(200).send(users);
+        // Send the array of users as a json response
+        return res.status(200).json({ "users": users });
       }
     }
   );

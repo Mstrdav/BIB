@@ -14,13 +14,13 @@ CREATE TABLE IF NOT EXISTS tbl_static_user_role(
 );
 
 -- create admin role
-INSERT INTO tbl_static_user_role(role_name) VALUES ('admin') ON CONFLICT DO NOTHING;
+INSERT INTO tbl_static_user_role(role_id, role_name) VALUES (1, 'admin') ON CONFLICT DO NOTHING;
 
 -- create user role
-INSERT INTO tbl_static_user_role(role_name) VALUES ('user') ON CONFLICT DO NOTHING;
+INSERT INTO tbl_static_user_role(role_id, role_name) VALUES (2, 'user') ON CONFLICT DO NOTHING;
 
 -- create official role
-INSERT INTO tbl_static_user_role(role_name) VALUES ('official') ON CONFLICT DO NOTHING;
+INSERT INTO tbl_static_user_role(role_id, role_name) VALUES (3, 'official') ON CONFLICT DO NOTHING;
 
 CREATE TABLE IF NOT EXISTS tbl_static_tag(
     tag_id int DEFAULT nextval('tbl_static_tag_id_seq'::regclass) NOT NULL PRIMARY KEY,
