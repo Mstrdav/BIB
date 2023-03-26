@@ -70,7 +70,7 @@ router.delete('/u/:id/r/:rid', verifyToken, removeRoleFromUser);
 router.get('/u/:id/o', verifyToken, getUserObjects);
 
 // Objects
-router.get('/o', verifyToken, getAllObjects);
+router.get('/o', getAllObjects);
 router.get('/o/:id', verifyToken, getObjectById);
 router.post('/o', verifyToken, createObject);
 router.patch('/o/:id', verifyToken, updateObject);
