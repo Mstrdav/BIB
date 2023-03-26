@@ -33,7 +33,7 @@ module.exports = (req, res) => {
 
   // Check if the user already exists
   db.query(
-    "SELECT * FROM tbl_static_user WHERE user_mail = $1",
+    "SELECT * FROM tbl_user WHERE user_mail = $1",
     [sanitizedEmail],
     (selectError, selectResults) => {
       if (selectError) {
@@ -43,7 +43,7 @@ module.exports = (req, res) => {
         if (selectResults.rows.length === 0) {
           // Create the user
           db.query(
-            "INSERT INTO tbl_static_user (user_name, user_mail, user_pwd) VALUES ($1, $2, $3) RETURNING user_id",
+            "INSERT INTO tbl_user (user_name, user_mail, user_pwd) VALUES ($1, $2, $3) RETURNING user_id",
             [sanitizedName, sanitizedEmail, hashedPassword],
             (insertError, insertResults) => {
               if (insertError) {
@@ -60,7 +60,7 @@ module.exports = (req, res) => {
 
                 // add default role (2 = user) to the user
                 db.query(
-                  "INSERT INTO tbl_static_user_join_role (user_id, role_id) VALUES ($1, $2)",
+                  "INSERT INTO tbl_user_join_role (user_id, role_id) VALUES ($1, $2)",
                   [insertResults.rows[0].user_id, 2],
                   (joinError, joinResults) => {
                     if (joinError) {

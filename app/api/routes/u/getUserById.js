@@ -4,7 +4,7 @@ const User = require("../../../models/User");
 // Retrieve a specific user by ID from the database
 module.exports = (req, res) => {
   const id = req.params.id;
-  db.query("SELECT * FROM tbl_static_user WHERE user_id = $1",
+  db.query("SELECT * FROM tbl_user WHERE user_id = $1",
   [id],
   (error, results) => {
     if (error) {
@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     } else {
       // get user roles
       db.query(
-        "SELECT * FROM tbl_static_user_join_role WHERE user_id = $1",
+        "SELECT * FROM tbl_user_join_role WHERE user_id = $1",
         [id],
         (joinErr, joinResults) => {
           if (joinErr) {

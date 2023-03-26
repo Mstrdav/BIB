@@ -5,7 +5,7 @@ const User = require("../../../models/User");
 module.exports = (req, res) => {
   // Get all users and their roles
   db.query(
-    "SELECT * FROM tbl_static_user INNER JOIN tbl_static_user_join_role ON tbl_static_user.user_id = tbl_static_user_join_role.user_id",
+    "SELECT * FROM tbl_user INNER JOIN tbl_user_join_role ON tbl_user.user_id = tbl_user_join_role.user_id",
     (err, results) => {
       if (err) {
         res.status(500).send("Error retrieving users from database");

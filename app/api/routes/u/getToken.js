@@ -29,7 +29,7 @@ module.exports = (req, res) => {
 
   // Check if the user exists
   db.query(
-    "SELECT * FROM tbl_static_user WHERE user_mail = $1",
+    "SELECT * FROM tbl_user WHERE user_mail = $1",
     [sanitizedEmail],
     (err, results) => {
       if (err) {

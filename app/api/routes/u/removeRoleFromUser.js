@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     let jwt_id = req.user.id;
 
     db.query(
-        "SELECT * FROM tbl_static_user_join_role WHERE user_id = '" + jwt_id + "' AND role_id = 1",
+        "SELECT * FROM tbl_user_join_role WHERE user_id = '" + jwt_id + "' AND role_id = 1",
         (err, results) => {
             if (err) {
                 return res.status(500).json({
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
                 }
 
                 db.query(
-                    "DELETE FROM tbl_static_user_join_role WHERE user_id = $1 AND role_id = $2",
+                    "DELETE FROM tbl_user_join_role WHERE user_id = $1 AND role_id = $2",
                     [user_id, role_id],
                     (err, results) => {
                         if (err) {
