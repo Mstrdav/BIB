@@ -15,7 +15,8 @@ const sha256 = (content) => createHash('sha3-256').update(content).digest('hex')
 // If email and password match, return a token
 // Otherwise, return an error
 module.exports = (req, res) => {
-  const { email, password } = req.body;
+  const email= req.query?.email || req.body?.email;
+  const password = req.query?.password || req.body?.password;
 
   if (!email || !password) {
     return res.status(400).send("Missing required fields");
@@ -24,16 +25,11 @@ module.exports = (req, res) => {
   // sanitize
   let sanitizedEmail = email.toLowerCase();
 
-  // regex check for email
-  if (!sanitizedEmail.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
-    return res.status(400).send("Invalid email");
-  }
-
   let sanitizedPassword = sha256(password);
 
   // Check if the user exists
   db.query(
-    "SELECT * FROM tbl_static_user WHERE user_mail = $1",
+    "SELECT * FROM tbl_user WHERE user_mail = $1",
     [sanitizedEmail],
     (err, results) => {
       if (err) {
@@ -47,7 +43,7 @@ module.exports = (req, res) => {
           if (results.rows[0].user_pwd === sanitizedPassword) {
             // Generate a token
             const token = jwt.sign(
-              { email: sanitizedEmail },
+              { id: results.rows[0].user_id },
               process.env.JWT_SECRET,
               {
                 expiresIn: "1w"

@@ -10,6 +10,9 @@ const getUserById = require('./routes/u/getUserById');
 const createUser = require('./routes/u/createUser');
 const updateUser = require('./routes/u/updateUser');
 const deleteUser = require('./routes/u/deleteUser');
+const getUserRoles = require('./routes/u/getUserRoles');
+const addRoleToUser = require('./routes/u/addRoleToUser');
+const removeRoleFromUser = require('./routes/u/removeRoleFromUser');
 
 const getUserObjects = require('./routes/o/getUserObjects');
 
@@ -60,11 +63,14 @@ router.get('/u/:id', verifyToken, getUserById);
 router.post('/u', createUser);
 router.patch('/u/:id', verifyToken, updateUser);
 router.delete('/u/:id', verifyToken, deleteUser);
+router.get('/u/:id/r', verifyToken, getUserRoles);
+router.post('/u/:id/r/:rid', verifyToken, addRoleToUser);
+router.delete('/u/:id/r/:rid', verifyToken, removeRoleFromUser);
 
 router.get('/u/:id/o', verifyToken, getUserObjects);
 
 // Objects
-router.get('/o', verifyToken, getAllObjects);
+router.get('/o', getAllObjects);
 router.get('/o/:id', verifyToken, getObjectById);
 router.post('/o', verifyToken, createObject);
 router.patch('/o/:id', verifyToken, updateObject);
