@@ -9,6 +9,7 @@ module.exports = (req, res) => {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
     } else {
+      // TODO
       res.status(200).json(results.rows[0]);
     }
   });

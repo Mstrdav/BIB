@@ -15,7 +15,7 @@ const sha256 = (content) => createHash('sha3-256').update(content).digest('hex')
 // If email and password match, return a token
 // Otherwise, return an error
 module.exports = (req, res) => {
-  const email= req.query?.email || req.body?.email;
+  const email = req.query?.email || req.body?.email;
   const password = req.query?.password || req.body?.password;
 
   if (!email || !password) {
@@ -23,9 +23,9 @@ module.exports = (req, res) => {
   }
 
   // sanitize
-  let sanitizedEmail = email.toLowerCase();
+  const sanitizedEmail = email.toLowerCase();
 
-  let sanitizedPassword = sha256(password);
+  const sanitizedPassword = sha256(password);
 
   // Check if the user exists
   db.query(
@@ -50,7 +50,7 @@ module.exports = (req, res) => {
               }
             );
             // Send the token to the user
-            res.status(200).send({ token });
+            res.status(200).send({ "token": token, "user_name": results.rows[0].user_name });
           } else {
             res.status(401).send("Password invalid");
           }
