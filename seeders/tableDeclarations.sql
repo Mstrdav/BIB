@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS tbl_user(
     user_name varchar(100) NOT NULL,
     user_mail varchar(255) NOT NULL,
     user_pwd varchar(255) NOT NULL,
-    user_pp_url varchar(255)
+    user_pp_url varchar(3000),
+    user_bio varchar(1000),
+    user_created_at timestamp NOT NULL,
 );
 
 -- Join USER and ROLE
